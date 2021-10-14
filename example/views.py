@@ -4,7 +4,13 @@ from django.utils.timezone import datetime
 from django.http import HttpResponse
 
 def home(request):
-    return HttpResponse("Hello, Django!")
+    return render(request, "example/home.html")
+
+def about(request):
+    return render(request, "example/about.html")
+
+def contact(request):
+    return render(request, "example/contact.html")
 
 def hello_there(request, name):
     return render(
