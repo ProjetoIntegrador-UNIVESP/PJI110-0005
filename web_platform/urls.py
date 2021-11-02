@@ -13,13 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import include, path
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import path
+from content import views
+from django.views.generic import RedirectView
+
+handler404 = views.handler404
 
 urlpatterns = [
-    path("", include("example.urls")),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('agenda/', views.lista_eventos),
+    path('agenda/lista/<int:id_usuario>/', views.json_lista_evento),
+    path('agenda/evento/', views.evento),
+    path('agenda/evento/submit', views.submit_evento),
+    path('agenda/evento/delete/<int:id_evento>/', views.delete_evento),
+    path('agenda/historico/', views.lista_eventos_historico),
+    path('', RedirectView.as_view(url='/agenda/')),
+    path('login/', views.login_user),
+    path('login/submit', views.submit_login),
+    path('logout/', views.logout_user)
 ]
-
-urlpatterns += staticfiles_urlpatterns()
