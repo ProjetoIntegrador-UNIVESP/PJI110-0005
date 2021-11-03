@@ -8,14 +8,14 @@ from datetime import datetime, timedelta
 from django.http.response import Http404, JsonResponse
 # Create your views here.
 
-# def index(request):
-#     return redirect('/agenda/')
-
 def handler404(request, exception):
     return render(request, '404.html')
 
 def login_user(request):
     return render(request, 'login.html')
+
+def home(request):
+    return render(request, 'home.html')
 
 def logout_user(request):
     logout(request)

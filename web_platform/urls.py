@@ -23,14 +23,16 @@ handler404 = views.handler404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('agenda/', views.lista_eventos),
+    path('', RedirectView.as_view(url='/home/')),
+    path('home/', views.home, name="home"),
+    path('agenda/', views.lista_eventos, name="agenda"),
     path('agenda/lista/<int:id_usuario>/', views.json_lista_evento),
-    path('agenda/evento/', views.evento),
+    path('agenda/evento/', views.evento, name="cursos"),
     path('agenda/evento/submit', views.submit_evento),
     path('agenda/evento/delete/<int:id_evento>/', views.delete_evento),
-    path('agenda/historico/', views.lista_eventos_historico),
-    path('', RedirectView.as_view(url='/agenda/')),
-    path('login/', views.login_user),
+    path('agenda/historico/', views.lista_eventos_historico, name="historico"),
+    #path('', RedirectView.as_view(url='/agenda/')),
+    path('login/', views.login_user, name="login"),
     path('login/submit', views.submit_login),
-    path('logout/', views.logout_user)
+    path('logout/', views.logout_user, name="logout")
 ]
