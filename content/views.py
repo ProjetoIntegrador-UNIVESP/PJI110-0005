@@ -8,18 +8,11 @@ from datetime import datetime, timedelta
 from django.http.response import Http404, JsonResponse
 # Create your views here.
 
-def handler404(request, exception):
-    return render(request, '404.html')
-
-def login_user(request):
-    return render(request, 'login.html')
-
 def home(request):
     return render(request, 'home.html')
 
-def logout_user(request):
-    logout(request)
-    return redirect('/')
+def login_user(request):
+    return render(request, 'login.html')
 
 def submit_login(request):
     if request.POST:
@@ -28,28 +21,32 @@ def submit_login(request):
         usuario = authenticate(username=username, password=password)
         if usuario is not None:
             login(request, usuario)
-            return redirect('/')
+            return redirect('home')
         else:
-            messages.error(request, "Usuário ou senha inválido")
-    return redirect('/')
+            messages.error(request, "Usuário ou Senha inexistente")
+            return redirect('login')
+    else:
+        return redirect('home')
 
-@login_required(login_url='/login/')
-def lista_eventos(request):
-    usuario = request.user
-    data_atual = datetime.now() - timedelta(hours=1)
-    evento = Evento.objects.filter(usuario=usuario,
-                                   data_evento__gt=data_atual)
-    dados = {'eventos':evento}
-    return render(request, 'agenda.html', dados)
+def logout_user(request):
+    logout(request)
+    return redirect('home')
 
+def handler404(request, exception):
+    return render(request, '404.html')
+
+"""
 @login_required(login_url='/login/')
-def lista_eventos_historico(request):
-    usuario = request.user
-    data_atual = datetime.now()
-    evento = Evento.objects.filter(usuario=usuario,
-                                   data_evento__lt=data_atual)
-    dados = {'eventos':evento}
-    return render(request, 'historico.html', dados)
+def curso(request):
+    id_curso = request.GET.get('id')
+    dados = {}
+    if id_curso:
+        try:
+            dados['curso'] = Curso.objects.get(id=id_curso)
+        except Exception:
+            raise Http404()
+    return render(request, 'curso.html', dados)
+"""
 
 @login_required(login_url='/login/')
 def evento(request):
@@ -61,6 +58,27 @@ def evento(request):
         except Exception:
             raise Http404()
     return render(request, 'evento.html', dados)
+
+"""
+@login_required(login_url='/login/')
+def submit_curso(request):
+    if request.POST:
+        id_curso = request.POST.get('id_curso')
+        nome = request.POST.get('nome')
+        link = request.POST.get('link')
+        usuario = request.user
+        if id_curso:
+            curso = curso.objects.get(id=id_curso)
+            if curso.usuario == usuario:
+                curso.nome = nome
+                curso.link = link
+                curso.save()
+        else:
+            curso.objects.create(nome=nome,
+                                link=link,
+                                usuario=usuario)
+    return redirect('agenda')
+"""
 
 @login_required(login_url='/login/')
 def submit_evento(request):
@@ -87,6 +105,21 @@ def submit_evento(request):
                                   usuario=usuario)
     return redirect('/')
 
+"""
+@login_required(login_url='/login/')
+def delete_curso(request, id_curso):
+    usuario = request.user
+    try:
+        curso = Curso.objects.get(id=id_curso)
+        if usuario == curso.usuario:
+            curso.delete()
+        else:
+            raise Http404()
+    except Exception:
+        raise Http404()
+    return redirect('agenda')
+"""
+
 @login_required(login_url='/login/')
 def delete_evento(request, id_evento):
     usuario = request.user
@@ -100,6 +133,50 @@ def delete_evento(request, id_evento):
         raise Http404()
     return redirect('/')
 
+"""
+@login_required(login_url='/login/')
+def lista_cursos(request):
+    usuario = request.user
+    curso = Curso.objects.filter(usuario=usuario)
+    dados = {'cursos':curso}
+    return render(request, 'agenda.html', dados)
+"""
+
+@login_required(login_url='/login/')
+def lista_eventos(request):
+    usuario = request.user
+    data_atual = datetime.now() - timedelta(hours=1)
+    evento = Evento.objects.filter(usuario=usuario,
+                                   data_evento__gt=data_atual)
+    dados = {'eventos':evento}
+    return render(request, 'agenda.html', dados)
+
+"""
+@login_required(login_url='/login/')
+def lista_cursos_historico(request):
+    usuario = request.user
+    data_atual = datetime.now()
+    curso = Curso.objects.filter(usuario=usuario,
+                                data_criacao__lt=data_atual)
+    dados = {'cursos':curso}
+    return render(request, 'historico.html', dados)
+"""
+
+@login_required(login_url='/login/')
+def lista_eventos_historico(request):
+    usuario = request.user
+    data_atual = datetime.now()
+    evento = Evento.objects.filter(usuario=usuario,
+                                   data_evento__lt=data_atual)
+    dados = {'eventos':evento}
+    return render(request, 'historico.html', dados)
+
+"""
+def json_lista_curso(request, id_usuario):
+    usuario = User.objects.get(id=id_usuario)
+    curso = Curso.objects.filter(usuario=usuario).values('id', 'nome')
+    return JsonResponse(list(curso), safe=False)
+"""
 
 def json_lista_evento(request, id_usuario):
     usuario = User.objects.get(id=id_usuario)

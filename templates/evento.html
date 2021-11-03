@@ -39,6 +39,30 @@
             </nav>
         </header>
 
+        <!--
+        <main class="container">
+            <h2>Novo Curso</h2>
+            <form action="submit" method="POST">{% csrf_token %}
+                <input type="number" name="id_curso" value="{{ curso.id }}" hidden>
+                <label>Nome do curso</label>
+                <br>
+                <input type="text" name="nome_curso" size="23" value="{{ curso.nome }}">
+                <br>
+                <br>
+                <label>Link do curso</label>
+                <br>
+                <input type="text" name="link_curso" size="23" value="{{ curso.link }}">
+                <br>
+                <br>
+                <br>
+                <button type="submit">Cadastrar</button>
+                <a href="agenda">
+                    <button type="button">Cancelar</button>
+                </a>
+            </form>
+        </main>
+        -->
+
         <main class="container">
             <h2>Evento</h2>
             <form action="submit" method="POST">{% csrf_token %}
