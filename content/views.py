@@ -3,7 +3,6 @@ from content.models import Curso
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from datetime import datetime
 from django.http.response import Http404
 # Create your views here.
 
