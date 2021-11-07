@@ -11,7 +11,7 @@
         <header>
             <nav class="navbar navbar-expand navbar-dark bg-dark mb-3">
                 <div class="container">
-                    <a class="navbar-brand" href="{% url 'home' %}">Homepage</a>
+                    <a class="navbar-brand" href="{% url 'home' %}">Página Inicial</a>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'admin:index' %}">Painel Administativo</a>
@@ -20,7 +20,7 @@
                             <a class="nav-link" href="{% url 'cursos' %}">Gerenciar cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'cursos' %}">Visualizar cursos</a>
+                            <a class="nav-link" href="{% url 'lista' %}">Visualizar cursos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Sair</a>
@@ -30,12 +30,11 @@
             </nav>
         </header>
 
-        
-        <!-- <main class="container">
-            <h2>Novo Curso</h2>
+        <main class="container">
+            <h2>Informações do curso</h2>
             <form action="submit" method="POST">{% csrf_token %}
                 <label>Nome do curso</label>
-                <input type="number" name="id_curso" value="{{ curso.id }}">
+                <input type="number" name="id_curso" value="{{ curso.id }}" hidden>
                 <br>
                 <input type="text" name="nome" size="23" value="{{ curso.nome }}">
                 <br>
@@ -51,71 +50,7 @@
                     <button type="button">Cancelar</button>
                 </a>
             </form>
-        </main> -->
-
-
-        <main class="container">
-            <h2>Evento</h2>
-            <form action="submit" method="POST">{% csrf_token %}
-                <label>Título</label>
-                <input type="number" name="id_curso" value="{{ curso.id }}" hidden>
-                <br>
-                <input type="text" name="nome" size="23" value="{{ curso.nome }}">
-                <br>
-                <label>Descrição</label>
-                <br>
-                <textarea name="link" rows="5" cols="24">{{ curso.link }}</textarea>
-                <br><br>
-                <button type="submit">Salvar</button>
-                <a href="/">
-                <button type="button">Cancelar</button>
-                </a>
-            </form>
         </main>
-
-
-        <!-- <main class="container">
-            <h2>Curso</h2>
-            <form action="submit" method="POST">{% csrf_token %}
-                <label>Nome do curso</label>
-                <input type="number" name="id_curso" value="{{ curso.id }}" hidden>
-                <br>
-                <input type="text" name="nome" size="23" value="{{ curso.nome }}">
-                <br>
-                <label>Link do curso</label>
-                <br>
-                <input type="text" name="link" size="23" value="{{ curso.link }}">
-                <br><br>
-                <button type="submit">Salvar</button>
-                <a href="/">
-                <button type="button">Cancelar</button>
-                </a>
-            </form>
-        </main> -->
-        
-
-        <!-- <main class="container">
-            <h2>Evento</h2>
-            <form action="submit" method="POST">{% csrf_token %}
-                <label>Título</label>
-                <input type="number" name="id_evento" value="{{ evento.id }}" hidden>
-                <br>
-                <input type="text" name="titulo" size="23" value="{{ evento.titulo }}">
-                <br>
-                <label>Data do Evento</label>
-                <br>
-                <input type="datetime-local" name="data_evento" value="{{ evento.get_data_input_evento }}">
-                <br>
-                <label>Descrição</label>
-                <br>
-                <textarea name="descricao" rows="5" cols="24">{{ evento.descricao }}</textarea>
-                <br><br>
-                <button type="submit">Salvar</button>
-                <a href="/">
-                <button type="button">Cancelar</button>
-                </a>
-            </form>
-        </main> -->
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
