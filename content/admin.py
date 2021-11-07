@@ -1,10 +1,11 @@
 from django.contrib import admin
-from content.models import Evento
+from content.models import Curso
 
 # Register your models here.
 
-class EventoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'titulo', 'data_evento', 'data_criacao')
-    list_filter = ('usuario', 'data_evento',)
 
-admin.site.register(Evento, EventoAdmin)
+class CursoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nome', 'link', 'data_criacao')
+    list_filter = ('usuario', 'nome',)
+
+admin.site.register(Curso, CursoAdmin)
